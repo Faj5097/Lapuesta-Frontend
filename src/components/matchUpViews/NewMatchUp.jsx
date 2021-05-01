@@ -1,15 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import _ from "lodash";
 import { MatchUpListContext } from "../context/MatchUpListContext";
-// import defaultMatchUp from "../../defaultMatchUp";
 
 function NewMatchUp() {
-  // var today = new Date();
-  // var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  // var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-  // var dateTime = date+' '+time;
-
   const [state, dispatch] = useContext(MatchUpListContext);
 
   const [homeTeamPlayerName, setHomeTeamPlayerName] = useState("");
@@ -50,22 +43,22 @@ function NewMatchUp() {
       result: {
         goals: {
           player1: 0,
-          player2: 0,
+          player2: 0
         },
-        winner: [""],
-        looser: [""],
-        draw: false,
+        winner: "",
+        looser: "",
+        draw: false
       },
       probability: {
         player1Wins: 1.4,
         draw: 4.5,
-        player2Wins: 2.9,
+        player2Wins: 2.9
       },
       teams: {
         home: {
           club: {
             name: homeTeamClubName,
-            stars: homeTeamClubStars,
+            stars: homeTeamClubStars
           },
           player1: {
             name: homeTeamPlayerName,
@@ -75,19 +68,19 @@ function NewMatchUp() {
             goals: {
               scored: {
                 allTime: 60,
-                thisMatchUp: 0,
+                thisMatchUp: 0
               },
               conceded: {
                 allTime: 34,
-                thisMatchUp: 0,
-              },
-            },
-          },
+                thisMatchUp: 0
+              }
+            }
+          }
         },
         away: {
           club: {
             name: awayTeamClubName,
-            stars: awayTeamClubStars,
+            stars: awayTeamClubStars
           },
           player2: {
             name: awayTeamPlayerName,
@@ -97,21 +90,21 @@ function NewMatchUp() {
             goals: {
               scored: {
                 allTime: 55,
-                thisMatchUp: 0,
+                thisMatchUp: 0
               },
               conceded: {
                 allTime: 88,
-                thisMatchUp: 0,
-              },
-            },
-          },
-        },
-      },
+                thisMatchUp: 0
+              }
+            }
+          }
+        }
+      }
     };
 
     dispatch({
       type: "ADD_MATCHUP",
-      payload: { id: _.uniqueId(10), matchUpJSON },
+      payload: { matchUpJSON }
     });
 
     history.push("/");

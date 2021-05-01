@@ -9,20 +9,20 @@ function MatchUpBody(props) {
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
     homeTeamScore: _matchUp.matchUpJSON.result.goals.player1,
-    awayTeamScore: _matchUp.matchUpJSON.result.goals.player2,
+    awayTeamScore: _matchUp.matchUpJSON.result.goals.player2
   });
 
   function handleSetResultHomeTeam(event) {
     setResult({
       homeTeamScore: event.target.value,
-      awayTeamScore: result.awayTeamScore,
+      awayTeamScore: result.awayTeamScore
     });
   }
 
   function handleSetResultAwayTeam(event) {
     setResult({
       homeTeamScore: result.homeTeamScore,
-      awayTeamScore: event.target.value,
+      awayTeamScore: event.target.value
     });
   }
 
@@ -33,8 +33,8 @@ function MatchUpBody(props) {
         id: props.id,
         alreadyPlayed: true,
         goalsPlayer1: result.homeTeamScore,
-        goalsPlayer2: result.awayTeamScore,
-      },
+        goalsPlayer2: result.awayTeamScore
+      }
     });
 
     setShowResult(false);

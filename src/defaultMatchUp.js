@@ -1,26 +1,25 @@
 const defaultMatchUp = {
-  key: 1,
   dateTimeOfMatchUp: new Date(Date.now()),
   alreadyPlayed: true,
   result: {
     goals: {
       player1: 5,
-      player2: 2,
+      player2: 2
     },
-    winner: ["Jänki"],
-    looser: ["Domain"],
-    draw: false,
+    winner: "Jänki",
+    looser: "Domain",
+    draw: false
   },
   probability: {
     player1Wins: 1.4,
     draw: 4.5,
-    player2Wins: 2.9,
+    player2Wins: 2.9
   },
   teams: {
     home: {
       club: {
         name: "FC Bayern",
-        stars: "5",
+        stars: 5
       },
       player1: {
         name: "Jänki",
@@ -30,19 +29,19 @@ const defaultMatchUp = {
         goals: {
           scored: {
             allTime: 60,
-            thisMatchUp: 5,
+            thisMatchUp: 5
           },
           conceded: {
             allTime: 34,
-            thisMatchUp: 2,
-          },
-        },
-      },
+            thisMatchUp: 2
+          }
+        }
+      }
     },
     away: {
       club: {
-        name: "LIVERPOOL",
-        stars: "5",
+        name: "Liverpool",
+        stars: 5
       },
       player2: {
         name: "Domain",
@@ -52,16 +51,16 @@ const defaultMatchUp = {
         goals: {
           scored: {
             allTime: 55,
-            thisMatchUp: 2,
+            thisMatchUp: 2
           },
           conceded: {
             allTime: 88,
-            thisMatchUp: 5,
-          },
-        },
-      },
-    },
-  },
+            thisMatchUp: 5
+          }
+        }
+      }
+    }
+  }
 };
 
 export default defaultMatchUp;

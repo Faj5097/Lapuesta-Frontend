@@ -1,17 +1,40 @@
 import React from "react";
+import axios from "axios";
 
 export const MatchUpListContext = React.createContext();
-
-const initialState = [];
 
 function reducer(state, action) {
   switch (action.type) {
     case "ADD_MATCHUP":
-      return [...state, action.payload].sort(
-        (a, b) =>
-          b.matchUpJSON.dateTimeOfMatchUp.getTime() -
-          a.matchUpJSON.dateTimeOfMatchUp.getTime()
-      );
+      axios
+        .post("http://localhost:4000/matchUps", action.payload.matchUpJSON, {
+          crossdomain: true,
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      axios
+        .get("http://localhost:4000/matchUps")
+        .then(function (response) {
+          return response.data;
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+      break;
+    // return [...state, action.payload].sort(
+    //   (a, b) =>
+    //     b.matchUpJSON.dateTimeOfMatchUp.getTime() -
+    //     a.matchUpJSON.dateTimeOfMatchUp.getTime()
+    // );
     case "UPDATE_MATCHUP": {
       return state.map((item) => {
         if (item.id === action.payload.id) {
@@ -29,7 +52,12 @@ function reducer(state, action) {
 }
 
 function MatchUpListContextProvider(props) {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const [iniState, setIniState] = React.useState("");
+  axios
+    .get("http://localhost:4000/matchUps")
+    .then((response) => setIniState(response.data.total));
+
+  const [state, dispatch] = React.useReducer(reducer, iniState);
 
   return (
     <MatchUpListContext.Provider value={[state, dispatch]}>
