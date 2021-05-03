@@ -1,9 +1,44 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
+
+import * as PlayerDataService from "../../services/player.service";
 
 function NewPlayer() {
+  const [name, setName] = React.useState("");
+  const [nickname, setNickname] = React.useState("");
+
+  const history = useHistory();
+
+  function handleName(event) {
+    setName(event.target.value);
+  }
+
+  function handleNickname(event) {
+    setNickname(event.target.value);
+  }
+
+  function handleCreatePlayer(event) {
+    event.preventDefault();
+
+    const playerJSON = {
+      name: name,
+      nickname: nickname
+    };
+
+    PlayerDataService.create(playerJSON)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    history.push("/");
+  }
+
   return (
     <div className=".container">
-      <form>
+      <form onSubmit={handleCreatePlayer}>
         <div className="card text-center">
           <div className="card-header">
             <a type="button" className="close" aria-label="Close" href="/">
@@ -17,11 +52,20 @@ function NewPlayer() {
                 type="text"
                 className="form-control"
                 placeholder="Name"
+                onChange={handleName}
+              ></input>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Nickname"
+                onChange={handleNickname}
               ></input>
             </div>
-            <a href="/" className="btn btn-primary btn-dark">
-              Spieler anlegen
-            </a>
+            <input
+              type="submit"
+              className="btn btn-primary btn-dark"
+              value="Spieler anlegen"
+            ></input>
           </div>
         </div>
       </form>

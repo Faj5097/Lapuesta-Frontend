@@ -1,15 +1,17 @@
 import React from "react";
-import { MatchUpListContext } from "../../../context/MatchUpListContext";
+import { MatchUpListContext } from "../../../../context/MatchUpListContext";
 
 function MatchUpHeader(props) {
-  const [state, dispatch] = React.useContext(MatchUpListContext);
+  const [matchUps, setMatchUps] = React.useContext(MatchUpListContext);
 
-  const matchUpHeader = state
-    .filter((matchUp) => matchUp.id === props.id)
+  const matchUpHeader = matchUps
+    .filter((matchUp) => matchUp._id === props._id)
     .map((matchUp) => {
-      const alreadyPlayed = matchUp.matchUpJSON.alreadyPlayed;
-      const homePlayerName = matchUp.matchUpJSON.teams.home.player1.name;
-      const awayPlayerName = matchUp.matchUpJSON.teams.away.player2.name;
+      console.log(matchUp);
+
+      const alreadyPlayed = matchUp.alreadyPlayed;
+      const homePlayerName = matchUp.teams.home.player1.name;
+      const awayPlayerName = matchUp.teams.away.player2.name;
 
       var matchUpHeaderDiv;
 

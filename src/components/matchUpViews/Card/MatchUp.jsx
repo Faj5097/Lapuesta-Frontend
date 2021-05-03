@@ -7,8 +7,8 @@ function MatchUp(props) {
     <div>
       <div className=".container">
         <div className="card text-center">
-          <MatchUpHeader id={props.id} />
-          <MatchUpBody id={props.id} />
+          <MatchUpHeader _id={props._id} />
+          <MatchUpBody _id={props._id} />
         </div>
       </div>
     </div>

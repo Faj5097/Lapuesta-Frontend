@@ -1,18 +1,32 @@
 import React from "react";
-import axios from "axios";
-import { MatchUpListContext } from "../context/MatchUpListContext";
 import MatchUp from "./Card/MatchUp";
 import NewMatchUpButton from "./NewMatchUpButton";
+import * as MatchUpDataService from "../../services/matchUp.service";
+import { MatchUpListContext } from "../../context/MatchUpListContext";
 
 function MatchUpList() {
-  // const [state, dispatch] = React.useContext(MatchUpListContext);
-  const [list, setList] = React.useState("");
+  const [matchUps, setMatchUps] = React.useContext(MatchUpListContext);
 
-  axios
-    .get("http://localhost:4000/matchUps")
-    .then((response) => setList(response.data));
+  function retrieveMatchUps() {
+    MatchUpDataService.getAll()
+      .then((response) => {
+        setMatchUps(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
-  const matchUpList = list.map((matchUp) => <MatchUp _id={matchUp._id} />);
+  React.useEffect(retrieveMatchUps, []);
+
+  const matchUpList = []
+    .concat(matchUps)
+    .sort(
+      (a, b) =>
+        new Date(b.dateTimeOfMatchUp).getTime() -
+        new Date(a.dateTimeOfMatchUp).getTime()
+    )
+    .map((matchUp) => <MatchUp _id={matchUp._id} key={matchUp._id} />);
 
   return (
     <div>

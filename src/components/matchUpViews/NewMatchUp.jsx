@@ -1,10 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { MatchUpListContext } from "../context/MatchUpListContext";
+import * as MatchUpDataService from "../../services/matchUp.service";
 
 function NewMatchUp() {
-  const [state, dispatch] = useContext(MatchUpListContext);
-
   const [homeTeamPlayerName, setHomeTeamPlayerName] = useState("");
   const [homeTeamClubName, setHomeTeamClubName] = useState("");
   const [homeTeamClubStars, setHomeTeamClubStars] = useState("");
@@ -102,10 +100,13 @@ function NewMatchUp() {
       }
     };
 
-    dispatch({
-      type: "ADD_MATCHUP",
-      payload: { matchUpJSON }
-    });
+    MatchUpDataService.create(matchUpJSON)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
 
     history.push("/");
   }

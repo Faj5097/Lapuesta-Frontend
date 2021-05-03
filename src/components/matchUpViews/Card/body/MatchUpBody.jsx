@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { MatchUpListContext } from "../../../context/MatchUpListContext";
+import { MatchUpListContext } from "../../../../context/MatchUpListContext";
+import * as MatchUpDataService from "../../../../services/matchUp.service";
 
 function MatchUpBody(props) {
-  const [state, dispatch] = React.useContext(MatchUpListContext);
+  const [matchUps, setMatchUps] = React.useContext(MatchUpListContext);
 
-  const _matchUp = state[state.findIndex((matchUp) => matchUp.id === props.id)];
+  const _matchUp =
+    matchUps[matchUps.findIndex((matchUp) => matchUp._id === props._id)];
 
   const [showResult, setShowResult] = useState(false);
   const [result, setResult] = useState({
-    homeTeamScore: _matchUp.matchUpJSON.result.goals.player1,
-    awayTeamScore: _matchUp.matchUpJSON.result.goals.player2
+    homeTeamScore: _matchUp.result.goals.player1,
+    awayTeamScore: _matchUp.result.goals.player2
   });
 
   function handleSetResultHomeTeam(event) {
@@ -27,15 +29,25 @@ function MatchUpBody(props) {
   }
 
   function handleSetResult() {
-    dispatch({
-      type: "UPDATE_MATCHUP",
-      payload: {
-        id: props.id,
-        alreadyPlayed: true,
-        goalsPlayer1: result.homeTeamScore,
-        goalsPlayer2: result.awayTeamScore
+    const data = {
+      alreadyPlayed: true,
+      result: {
+        goals: {
+          player1: 99,
+          player2: 11
+        }
       }
-    });
+    };
+
+    console.log(data);
+
+    MatchUpDataService.update(props._id, data)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
 
     setShowResult(false);
   }
@@ -44,14 +56,14 @@ function MatchUpBody(props) {
     setShowResult(true);
   }
 
-  const matchUpBody = state
-    .filter((matchUp) => matchUp.id === props.id)
+  const matchUpBody = matchUps
+    .filter((matchUp) => matchUp._id === props._id)
     .map((matchUp) => {
-      const alreadyPlayed = matchUp.matchUpJSON.alreadyPlayed;
-      const homeTeamName = matchUp.matchUpJSON.teams.home.club.name;
-      const awayTeamName = matchUp.matchUpJSON.teams.away.club.name;
-      const homeTeamScore = matchUp.matchUpJSON.result.goals.player1;
-      const awayTeamScore = matchUp.matchUpJSON.result.goals.player2;
+      const alreadyPlayed = matchUp.alreadyPlayed;
+      const homeTeamName = matchUp.teams.home.club.name;
+      const awayTeamName = matchUp.teams.away.club.name;
+      const homeTeamScore = matchUp.result.goals.player1;
+      const awayTeamScore = matchUp.result.goals.player2;
 
       var matchUpBodyDiv;
 

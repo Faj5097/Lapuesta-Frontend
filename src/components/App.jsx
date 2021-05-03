@@ -2,11 +2,11 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import Header from "./partials/Header";
-import { MatchUpListContextProvider } from "./context/MatchUpListContext";
 import NewPlayer from "./playerViews/NewPlayer";
 import NewMatchUp from "./matchUpViews/NewMatchUp";
 import MatchUpList from "./matchUpViews/MatchUpList";
 import Footer from "./partials/Footer";
+import { MatchUpListContextProvider } from "../context/MatchUpListContext";
 
 function App() {
   return (
