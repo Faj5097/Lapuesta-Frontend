@@ -3,7 +3,7 @@ import { MatchUpListContext } from "../../../../context/MatchUpListContext";
 import * as MatchUpDataService from "../../../../services/matchUp.service";
 
 function MatchUpBody(props) {
-  const [matchUps, setMatchUps] = React.useContext(MatchUpListContext);
+  const [matchUps] = React.useContext(MatchUpListContext);
 
   const _matchUp =
     matchUps[matchUps.findIndex((matchUp) => matchUp._id === props._id)];
@@ -33,8 +33,8 @@ function MatchUpBody(props) {
       alreadyPlayed: true,
       result: {
         goals: {
-          player1: 99,
-          player2: 11
+          player1: result.homeTeamScore,
+          player2: result.awayTeamScore
         }
       }
     };
