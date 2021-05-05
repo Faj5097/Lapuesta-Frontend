@@ -1,6 +1,8 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as MatchUpDataService from "../../services/matchUp.service";
+import * as PlayerDataService from "../../services/player.service";
+import * as TeamDataService from "../../services/team.service";
 
 function NewMatchUp() {
   const [homeTeamPlayerName, setHomeTeamPlayerName] = useState("");
@@ -10,18 +12,47 @@ function NewMatchUp() {
   const [awayTeamClubName, setAwayTeamClubName] = useState("");
   const [awayTeamClubStars, setAwayTeamClubStars] = useState("");
 
+  const [players, setPlayers] = useState([]);
+  const [teams, setTeams] = useState([]);
+
   const history = useHistory();
+
+  function retrieveData() {
+    retrievePlayers();
+    retrieveTeams();
+  }
+
+  function retrieveTeams() {
+    TeamDataService.getAll()
+      .then((response) => {
+        setTeams(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  function retrievePlayers() {
+    PlayerDataService.getAll()
+      .then((response) => {
+        setPlayers(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  React.useEffect(retrieveData, []);
 
   function handleHomeTeamClubNameChange(event) {
     setHomeTeamClubName(event.target.value);
-  }
-  function handleHomeTeamClubStarsChange(event) {
-    setHomeTeamClubStars(event.target.value);
+    teams
+      .filter((team) => team.name === homeTeamClubName)
+      .map((team) => setHomeTeamClubStars(team.stars));
   }
   function handleHomeTeamPlayerNameChange(event) {
     setHomeTeamPlayerName(event.target.value);
   }
-
   function handleAwayTeamClubNameChange(event) {
     setAwayTeamClubName(event.target.value);
   }
@@ -128,13 +159,14 @@ function NewMatchUp() {
                 className="form-select form-control"
                 aria-label="Default select example"
                 onChange={handleHomeTeamPlayerNameChange}
+                required
               >
                 <option value="" selected="true" disabled hidden>
                   Name
                 </option>
-                <option value="Domain">Domain</option>
-                <option value="Listl">Fränzl</option>
-                <option value="Jänki">Jänki</option>
+                {players.map((player) => (
+                  <option value={player.nickname}>{player.nickname}</option>
+                ))}
               </select>
               <select
                 className="form-select form-control"
@@ -144,25 +176,31 @@ function NewMatchUp() {
                 <option value="" selected="true" disabled hidden>
                   Team
                 </option>
-                <option value="FC Bayern">FC Bayern</option>
-                <option value="Liverpool">Liverpool</option>
-                <option value="Frankfurt">Frankfurt</option>
+                {teams.map((team) => (
+                  <option value={team.name}>{team.name}</option>
+                ))}
               </select>
               <select
                 className="form-select form-control"
                 aria-label="Default select example"
-                onChange={handleHomeTeamClubStarsChange}
               >
-                <option value="" selected="true" disabled hidden>
-                  Sterne
+                <option
+                  value={
+                    homeTeamClubName === ""
+                      ? ""
+                      : teams
+                          .filter((team) => team.name === homeTeamClubName)
+                          .map((team) => team.stars)
+                  }
+                  selected="true"
+                  disabled
+                >
+                  {homeTeamClubName === ""
+                    ? "Sterne"
+                    : teams
+                        .filter((team) => team.name === homeTeamClubName)
+                        .map((team) => team.stars)}
                 </option>
-                <option value="2">2</option>
-                <option value="2.5">2.5</option>
-                <option value="3">3</option>
-                <option value="3.5">3.5</option>
-                <option value="4">4</option>
-                <option value="4.5">4.5</option>
-                <option value="5">5</option>
               </select>
               <h6>Player 2</h6>
               <select
@@ -173,9 +211,9 @@ function NewMatchUp() {
                 <option value="" selected="true" disabled hidden>
                   Name
                 </option>
-                <option value="Domain">Domain</option>
-                <option value="Listl">Fränzl</option>
-                <option value="Jänki">Jänki</option>
+                {players.map((player) => (
+                  <option value={player.nickname}>{player.nickname}</option>
+                ))}
               </select>
               <select
                 className="form-select form-control"
@@ -185,25 +223,32 @@ function NewMatchUp() {
                 <option value="" selected="true" disabled hidden>
                   Team
                 </option>
-                <option value="FC Bayern">FC Bayern</option>
-                <option value="Liverpool">Liverpool</option>
-                <option value="Frankfurt">Frankfurt</option>
+                {teams.map((team) => (
+                  <option value={team.name}>{team.name}</option>
+                ))}
               </select>
               <select
                 className="form-select form-control"
                 aria-label="Default select example"
                 onChange={handleAwayTeamClubStarsChange}
               >
-                <option value="" selected="true" disabled hidden>
-                  Sterne
+                <option
+                  value={
+                    awayTeamClubName === ""
+                      ? ""
+                      : teams
+                          .filter((team) => team.name === awayTeamClubName)
+                          .map((team) => team.stars)
+                  }
+                  selected="true"
+                  disabled
+                >
+                  {awayTeamClubName === ""
+                    ? "Sterne"
+                    : teams
+                        .filter((team) => team.name === awayTeamClubName)
+                        .map((team) => team.stars)}
                 </option>
-                <option value="2">2</option>
-                <option value="2.5">2.5</option>
-                <option value="3">3</option>
-                <option value="3.5">3.5</option>
-                <option value="4">4</option>
-                <option value="4.5">4.5</option>
-                <option value="5">5</option>
               </select>
             </div>
             <input

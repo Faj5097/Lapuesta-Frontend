@@ -1,7 +1,7 @@
 import http from "../http-common";
 
 function getAll() {
-  return http.get("/players", [{ $sort: { dateTimeOfMatchUp: 1 } }]);
+  return http.get("/players", [{ $sort: { nickname: 1 } }]);
 }
 
 function create(data) {
