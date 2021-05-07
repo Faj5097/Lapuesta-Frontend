@@ -114,9 +114,9 @@ function NewMatchUp() {
         draw: false
       },
       probability: {
-        player1Wins: 1.4,
-        draw: 4.5,
-        player2Wins: 2.9
+        player1Wins: 99.99,
+        draw: 99.99,
+        player2Wins: 99.99
       },
       teams: {
         home: {

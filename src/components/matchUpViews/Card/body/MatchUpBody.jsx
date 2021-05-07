@@ -64,6 +64,9 @@ function MatchUpBody(props) {
       const awayTeamName = matchUp.teams.away.club.name;
       const homeTeamScore = matchUp.result.goals.player1;
       const awayTeamScore = matchUp.result.goals.player2;
+      const probPlayer1 = matchUp.probability.player1Wins;
+      const probDraw = matchUp.probability.draw;
+      const probPlayer2 = matchUp.probability.player2Wins;
 
       var matchUpBodyDiv;
 
@@ -169,9 +172,9 @@ function MatchUpBody(props) {
               </div>
               <p className="card-text">
                 <div className="row">
-                  <div className="col-5">1,8</div>
-                  <div className="col-2">3,1</div>
-                  <div className="col-5">2,4</div>
+                  <div className="col-5">{probPlayer1}</div>
+                  <div className="col-2">{probDraw}</div>
+                  <div className="col-5">{probPlayer2}</div>
                 </div>
               </p>
               <button
