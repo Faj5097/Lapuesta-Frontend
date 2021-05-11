@@ -45,3 +45,7 @@ footer p {
   bottom: 50px;
   right: 20px;
 }
+
+.popOverMenu {
+  background-color: white;
+}
