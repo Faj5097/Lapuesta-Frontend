@@ -35,6 +35,15 @@ footer p {
   text-align: center;
 }
 
+.btn-menu-card {
+  border: none;
+}
+
+.btn-menu-card:focus {
+  border: none;
+  outline: none;
+}
+
 .card {
   margin: 20px;
 }
@@ -44,8 +53,4 @@ footer p {
   position: fixed;
   bottom: 50px;
   right: 20px;
-}
-
-.popOverMenu {
-  background-color: white;
 }

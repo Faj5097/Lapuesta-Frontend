@@ -1,26 +1,20 @@
 import React from "react";
 
 function PopoverMenu() {
-  const [isOpen, setOpen] = React.useState(false);
-
-  // helper function to close the menu
-  function handleBtnClick() {
-    isOpen ? setOpen(false) : setOpen(true);
-  }
-
-  // Again, we're using framer-motion for the transition effect
   return (
-    <div class="container mt-3">
-      <h3>Popover Options</h3>
-      <p>
-        The <strong>placement</strong> option specifies the popover position.
-      </p>
-      <div>
-        <button class="btn btn-warning">Top</button>
-        <button class="btn btn-success">Bottom</button>
-        <button class="btn btn-danger">Left</button>
-        <button class="btn btn-primary">Right</button>
-      </div>
+    <div className="btn-group close">
+      <button
+        type="button"
+        className="btn btn-sm btn-outline-secondary btn-menu-card"
+      >
+        <span class="fa fa-trash" aria-hidden="true"></span>
+      </button>
+      <button
+        type="button"
+        className="btn btn-sm btn-outline-secondary btn-menu-card"
+      >
+        <span class="fa fa-edit" aria-hidden="true"></span>
+      </button>
     </div>
     //   <div>
     //       <button
