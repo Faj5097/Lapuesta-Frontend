@@ -274,9 +274,11 @@ function NewMatchUp() {
                 <option value="" selected="true" disabled hidden>
                   Land
                 </option>
-                {teams.map((team) => (
-                  <option value={team.country}>{team.country}</option>
-                ))}
+                {[...new Set(teams.map((team) => team.country))].map(
+                  (element) => {
+                    return <option value={element}>{element}</option>;
+                  }
+                )}
               </select>
               <select
                 className="form-select form-control"

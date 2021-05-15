@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { MatchUpListContext } from "../../../../context/MatchUpListContext";
 import * as MatchUpDataService from "../../../../services/matchUp.service";
 
 function MatchUpBody(props) {
+  const history = useHistory();
+
   const [matchUps] = React.useContext(MatchUpListContext);
 
   const _matchUp =
@@ -50,6 +53,8 @@ function MatchUpBody(props) {
       });
 
     setShowResult(false);
+
+    window.location.reload();
   }
 
   function handleSetShowResult() {
@@ -93,7 +98,7 @@ function MatchUpBody(props) {
                     <input
                       type="number"
                       id="quantity"
-                      placeholder="0"
+                      // placeholder="0"
                       min="0"
                       max="100"
                       className="form-control"
@@ -106,7 +111,7 @@ function MatchUpBody(props) {
                     <input
                       type="number"
                       id="typeNumber"
-                      placeholder="0"
+                      // placeholder="0"
                       min="0"
                       max="100"
                       className="form-control"
