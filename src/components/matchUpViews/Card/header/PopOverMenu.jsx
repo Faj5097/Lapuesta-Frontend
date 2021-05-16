@@ -1,11 +1,25 @@
 import React from "react";
+import * as MatchUpDataService from "../../../../services/matchUp.service";
 
-function PopoverMenu() {
+function PopoverMenu(props) {
+  function handleDelete() {
+    MatchUpDataService.deleteById(props._id)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+
+    window.location.reload();
+  }
+
   return (
     <div className="btn-group close">
       <button
         type="button"
         className="btn btn-sm btn-outline-secondary btn-menu-card"
+        onClick={handleDelete}
       >
         <span class="fa fa-trash" aria-hidden="true"></span>
       </button>

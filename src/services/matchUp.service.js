@@ -12,4 +12,8 @@ function update(id, data) {
   return http.patch("/matchUps/" + id, data);
 }
 
-export { getAll, create, update };
+function deleteById(id) {
+  return http.delete("/matchUps/" + id);
+}
+
+export { getAll, create, update, deleteById };

@@ -15,7 +15,7 @@ function MatchUpHeader(props) {
 
       return (
         <div className="card-header">
-          <PopOverMenu />
+          <PopOverMenu _id={props._id} />
           <div className="row">
             <div className="col">{homePlayerName}</div>
             <div className="col">vs</div>
