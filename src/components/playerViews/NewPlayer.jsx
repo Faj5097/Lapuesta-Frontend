@@ -22,7 +22,10 @@ function NewPlayer() {
 
     const playerJSON = {
       name: name,
-      nickname: nickname
+      nickname: nickname,
+      wins: 0,
+      draws: 0,
+      loses: 0
     };
 
     PlayerDataService.create(playerJSON)
