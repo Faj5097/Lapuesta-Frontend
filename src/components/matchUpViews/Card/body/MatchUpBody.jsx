@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { MatchUpListContext } from "../../../../context/MatchUpListContext";
 import * as MatchUpDataService from "../../../../services/matchUp.service";
+import { setStatsPlayer } from "../../../../services/result.service";
 
 function MatchUpBody(props) {
   const history = useHistory();
@@ -23,7 +24,6 @@ function MatchUpBody(props) {
       awayTeamScore: result.awayTeamScore
     });
   }
-
   function handleSetResultAwayTeam(event) {
     setResult({
       homeTeamScore: result.homeTeamScore,
@@ -31,7 +31,7 @@ function MatchUpBody(props) {
     });
   }
 
-  function handleSetResult() {
+  async function handleSetResult() {
     const data = {
       alreadyPlayed: true,
       result: {
@@ -43,6 +43,10 @@ function MatchUpBody(props) {
     };
 
     console.log(data);
+
+    let player1Nickname = _matchUp.teams.home.player1.name;
+    let player2Nickname = _matchUp.teams.away.player2.name;
+    await setStatsPlayer(data, player1Nickname, player2Nickname);
 
     MatchUpDataService.update(props._id, data)
       .then((response) => {
