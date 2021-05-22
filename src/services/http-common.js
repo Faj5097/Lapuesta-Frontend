@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:4000/",
+  baseURL: "https://protected-reaches-62397.herokuapp.com/",
   headers: {
     "Content-type": "application/json"
   }

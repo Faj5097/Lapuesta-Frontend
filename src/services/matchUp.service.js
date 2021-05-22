@@ -1,4 +1,4 @@
-import http from "../http-common";
+import http from "./http-common";
 
 function getAll() {
   return http.get("/matchUps", [{ $sort: { dateTimeOfMatchUp: 1 } }]);
