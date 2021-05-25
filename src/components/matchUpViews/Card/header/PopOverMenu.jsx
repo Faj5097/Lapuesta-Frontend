@@ -1,8 +1,31 @@
 import React from "react";
+import { MatchUpListContext } from "../../../../context/MatchUpListContext";
 import * as MatchUpDataService from "../../../../services/matchUp.service";
+import { setDeleteStatsPlayer } from "../../../../services/result.service";
 
 function PopoverMenu(props) {
-  function handleDelete() {
+  const [matchUps] = React.useContext(MatchUpListContext);
+
+  const _matchUp =
+    matchUps[matchUps.findIndex((matchUp) => matchUp._id === props._id)];
+
+  async function handleDelete() {
+    const data = {
+      result: {
+        goals: {
+          player1: _matchUp.result.goals.player1,
+          player2: _matchUp.result.goals.player2
+        }
+      }
+    };
+
+    console.log(data);
+
+    let player1Nickname = _matchUp.teams.home.player1.name;
+    let player2Nickname = _matchUp.teams.away.player2.name;
+
+    await setDeleteStatsPlayer(data, player1Nickname, player2Nickname);
+
     MatchUpDataService.deleteById(props._id)
       .then((response) => {
         console.log(response.data);
@@ -11,7 +34,7 @@ function PopoverMenu(props) {
         console.log(e);
       });
 
-    window.location.reload();
+    // window.location.reload();
   }
 
   return (

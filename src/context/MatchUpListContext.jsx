@@ -1,5 +1,4 @@
 import React from "react";
-import * as MatchUpDataServices from "../services/matchUp.service";
 
 export const MatchUpListContext = React.createContext();
 

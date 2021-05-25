@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { MatchUpListContext } from "../../../../context/MatchUpListContext";
 import * as MatchUpDataService from "../../../../services/matchUp.service";
-import { setStatsPlayer } from "../../../../services/result.service";
+import { setNewStatsPlayer } from "../../../../services/result.service";
 
 function MatchUpBody(props) {
-  const history = useHistory();
-
   const [matchUps] = React.useContext(MatchUpListContext);
 
   const _matchUp =
@@ -46,9 +43,9 @@ function MatchUpBody(props) {
 
     let player1Nickname = _matchUp.teams.home.player1.name;
     let player2Nickname = _matchUp.teams.away.player2.name;
-    await setStatsPlayer(data, player1Nickname, player2Nickname);
+    await setNewStatsPlayer(data, player1Nickname, player2Nickname);
 
-    MatchUpDataService.update(props._id, data)
+    await MatchUpDataService.update(props._id, data)
       .then((response) => {
         console.log(response.data);
       })
@@ -58,7 +55,7 @@ function MatchUpBody(props) {
 
     setShowResult(false);
 
-    window.location.reload();
+    // window.location.reload();
   }
 
   function handleSetShowResult() {

@@ -3,7 +3,7 @@ import { MatchUpListContext } from "../../../../context/MatchUpListContext";
 import PopOverMenu from "./PopOverMenu";
 
 function MatchUpHeader(props) {
-  const [matchUps, setMatchUps] = React.useContext(MatchUpListContext);
+  const [matchUps] = React.useContext(MatchUpListContext);
 
   const matchUpHeader = matchUps
     .filter((matchUp) => matchUp._id === props._id)

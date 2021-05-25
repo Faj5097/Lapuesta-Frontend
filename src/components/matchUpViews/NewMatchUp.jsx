@@ -49,12 +49,6 @@ function NewMatchUp() {
 
   function handlePlayer1CountryChange(event) {
     const countryValue = event.target.value;
-    const firstTeamOfCountry = teams.filter(
-      (team) => team.country === countryValue
-    )[0].name;
-    const starsOfTeam = teams.filter(
-      (team) => team.name === firstTeamOfCountry
-    )[0].stars;
     setPlayer1Country(countryValue);
     setPlayer1TeamName("");
     setPlayer1Stars("");
@@ -76,12 +70,6 @@ function NewMatchUp() {
 
   function handlePlayer2CountryChange(event) {
     const countryValue = event.target.value;
-    const firstTeamOfCountry = teams.filter(
-      (team) => team.country === countryValue
-    )[0].name;
-    const starsOfTeam = teams.filter(
-      (team) => team.name === firstTeamOfCountry
-    )[0].stars;
     setPlayer2Country(countryValue);
     setPlayer2TeamName("");
     setPlayer2Stars("");
@@ -125,20 +113,7 @@ function NewMatchUp() {
             stars: player1Stars
           },
           player1: {
-            name: player1Nickname,
-            winsBefore: 9,
-            drawsBefore: 5,
-            losesBefore: 1,
-            goals: {
-              scored: {
-                allTime: 60,
-                thisMatchUp: 0
-              },
-              conceded: {
-                allTime: 34,
-                thisMatchUp: 0
-              }
-            }
+            name: player1Nickname
           }
         },
         away: {
@@ -147,20 +122,7 @@ function NewMatchUp() {
             stars: player2Stars
           },
           player2: {
-            name: player2Nickname,
-            winsBefore: 4,
-            drawsBefore: 10,
-            losesBefore: 8,
-            goals: {
-              scored: {
-                allTime: 55,
-                thisMatchUp: 0
-              },
-              conceded: {
-                allTime: 88,
-                thisMatchUp: 0
-              }
-            }
+            name: player2Nickname
           }
         }
       }
