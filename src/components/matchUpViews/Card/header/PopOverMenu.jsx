@@ -24,7 +24,9 @@ function PopoverMenu(props) {
     let player1Nickname = _matchUp.teams.home.player1.name;
     let player2Nickname = _matchUp.teams.away.player2.name;
 
-    await setDeleteStatsPlayer(data, player1Nickname, player2Nickname);
+    if (_matchUp.alreadyPlayed) {
+      await setDeleteStatsPlayer(data, player1Nickname, player2Nickname);
+    }
 
     MatchUpDataService.deleteById(props._id)
       .then((response) => {

@@ -77,13 +77,15 @@ function NewMatchUp() {
     // setPlayer1Stars(starsOfTeam);
   }
   function handlePlayer2TeamNameChange(event) {
-    setPlayer2TeamName(event.target.value);
+    if (event.target.value !== "") {
+      setPlayer2TeamName(event.target.value);
+      teams
+        .filter((team) => team.name === event.target.value)
+        .map((team) => setPlayer2Stars(team.stars));
+    }
   }
   function handlePlayer2NicknameChange(event) {
     setPlayer2Nickname(event.target.value);
-    teams
-      .filter((team) => team.name === player2TeamName)
-      .map((team) => setPlayer2Stars(team.stars));
   }
 
   function handleCreateMatchUp(event) {
